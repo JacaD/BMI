@@ -29,99 +29,24 @@ class MainActivityTestAuto {
 
     @Test
     fun mainActivityTestAuto() {
-        val appCompatEditText = onView(
-            allOf(
-                withId(R.id.weight_ET),
-                childAtPosition(
-                    childAtPosition(
-                        withId(android.R.id.content),
-                        0
-                    ),
-                    3
-                ),
-                isDisplayed()
-            )
-        )
-        appCompatEditText.perform(click())
-
         val appCompatEditText2 = onView(
-            allOf(
-                withId(R.id.weight_ET),
-                childAtPosition(
-                    childAtPosition(
-                        withId(android.R.id.content),
-                        0
-                    ),
-                    3
-                ),
-                isDisplayed()
-            )
+            withId(R.id.weight_ET)
         )
         appCompatEditText2.perform(replaceText("80"), closeSoftKeyboard())
 
         val appCompatEditText3 = onView(
-            allOf(
-                withId(R.id.height_ET),
-                childAtPosition(
-                    childAtPosition(
-                        withId(android.R.id.content),
-                        0
-                    ),
-                    4
-                ),
-                isDisplayed()
-            )
+                withId(R.id.height_ET)
         )
         appCompatEditText3.perform(replaceText("180"), closeSoftKeyboard())
 
-        pressBack()
-
         val appCompatButton = onView(
-            allOf(
-                withId(R.id.button), withText("Count BMI"),
-                childAtPosition(
-                    childAtPosition(
-                        withId(android.R.id.content),
-                        0
-                    ),
-                    1
-                ),
-                isDisplayed()
-            )
+                withId(R.id.button)
         )
         appCompatButton.perform(click())
 
         val textView = onView(
-            allOf(
-                withId(R.id.result_TV), withText("24.69"),
-                childAtPosition(
-                    childAtPosition(
-                        withId(android.R.id.content),
-                        0
-                    ),
-                    5
-                ),
-                isDisplayed()
-            )
+                withId(R.id.result_TV)
         )
         textView.check(matches(withText("24.69")))
-    }
-
-    private fun childAtPosition(
-        parentMatcher: Matcher<View>, position: Int
-    ): Matcher<View> {
-
-        return object : TypeSafeMatcher<View>() {
-            override fun describeTo(description: Description) {
-                description.appendText("Child at position $position in parent ")
-                parentMatcher.describeTo(description)
-            }
-
-            public override fun matchesSafely(view: View): Boolean {
-                val parent = view.parent
-                return parent is ViewGroup && parentMatcher.matches(parent)
-                        && view == parent.getChildAt(position)
-            }
-        }
     }
 }
