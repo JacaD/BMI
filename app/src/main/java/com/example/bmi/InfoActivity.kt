@@ -13,12 +13,12 @@ class InfoActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_info)
-        val bmi = intent?.extras?.getString("bmi")
+        val bmi = intent?.extras?.getDouble("bmi")
         if(bmi !== null) {
-            info_TV.text = bmi.toString().format("%.2f")
-            info_TV.setTextColor(BmiAnalyser.getColorOfTextForGivenBMI(bmi.toDouble()))
-            description_TV.text = BmiAnalyser.getDescriptionForGivenBMI(bmi.toDouble())
-            info_image_IV.setImageDrawable(ContextCompat.getDrawable(this, BmiAnalyser.getImageIdForGivenBMI(bmi.toDouble())))
+            info_TV.text = String.format("%.2f", bmi)
+            info_TV.setTextColor(BmiAnalyser.getColorOfTextForGivenBMI(bmi))
+            description_TV.text = BmiAnalyser.getDescriptionForGivenBMI(bmi)
+            info_image_IV.setImageDrawable(ContextCompat.getDrawable(this, BmiAnalyser.getImageIdForGivenBMI(bmi)))
         }
     }
 }

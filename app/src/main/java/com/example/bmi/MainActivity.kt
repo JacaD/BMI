@@ -16,6 +16,7 @@ import java.lang.Exception
 class MainActivity : AppCompatActivity() {
 
     var imperialSelected: Boolean = false
+    var bmi: Double = -1.0
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         menuInflater.inflate(R.menu.options_menu, menu)
@@ -52,14 +53,14 @@ class MainActivity : AppCompatActivity() {
 
 
     fun calculateBMI(v: View){
-        val heightStr = height_ET.text.toString()
-        val weightStr = weight_ET.text.toString()
+        val height = height_ET.text.toString().toInt()
+        val weight = weight_ET.text.toString().toInt()
         try {
-            val bmi: Double = when(imperialSelected){
-                true -> BmiForLbsIn(weightStr.toInt(), heightStr.toInt()).countBMI()
-                false -> BmiForKgCm(weightStr.toInt(), heightStr.toInt()).countBMI()
+            bmi = when(imperialSelected){
+                true -> BmiForLbsIn(weight, height).countBMI()
+                false -> BmiForKgCm(weight, height).countBMI()
             }
-            displayBMI(bmi)
+            displayBMI()
         }
         catch(e: Exception){
             Toast.makeText(applicationContext, "Wrong Data", Toast.LENGTH_LONG).show()
@@ -67,41 +68,27 @@ class MainActivity : AppCompatActivity() {
     }
 
     fun showInfo(v: View){
-        if(getBmi() == null || getBmi() == ""){
-            return
-        }
-        startActivity(Intent(this, InfoActivity::class.java).putExtra("bmi", getBmi()))
+        if(bmi <= 0.0) return
+        startActivity(Intent(this, InfoActivity::class.java).putExtra("bmi", bmi))
     }
 
-    fun displayBMI(bmi: Double){
+    fun displayBMI(){
         val bmiStr: String = String.format("%.2f", bmi)
         result_TV.setTextColor(BmiAnalyser.getColorOfTextForGivenBMI(bmi))
         result_TV.text = bmiStr
     }
 
-    fun getBmi(): String?{
-        val bmi: String? = result_TV.text.toString()
-        println(bmi)
-        if(bmi !== null && bmi !== ""){
-            return bmi
-        }
-        return null
-    }
     override fun onSaveInstanceState(outState: Bundle?) {
-        val bmi: String? = result_TV.text.toString()
-        if(bmi !== null && bmi !== ""){
-            outState?.putDouble("bmi", bmi.toDouble())
-        }
+        outState?.putDouble("bmi", bmi)
         super.onSaveInstanceState(outState)
     }
 
     override fun onRestoreInstanceState(savedInstanceState: Bundle?) {
         super.onRestoreInstanceState(savedInstanceState)
         val receivedBmi: Double? = savedInstanceState?.getDouble("bmi", -1.0)
-        println(receivedBmi)
         if(receivedBmi !== null && receivedBmi >= 0.0){
-            displayBMI(receivedBmi)
+            bmi = receivedBmi
+            displayBMI()
         }
     }
-
 }
