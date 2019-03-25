@@ -41,4 +41,10 @@
         Extremely Obese. \n Etiam nec velit et orci vestibulum pharetra.
         Phasellus tincidunt et sem et finibus. Nullam porttitor pharetra risus sit amet pellentesque.
     </string>
+    <string name="about_menu_bmi_font_size">60sp</string>
+    <string name="about_menu_tv_font_size">20sp</string>
+    <string name="about_menu_tv_padding">16dp</string>
+    <string name="main_menu_margin">8dp</string>
+    <string name="main_menu_button_margin_bottom">24dp</string>
+    <string name="main_menu_button_margin_left_right">16dp</string>
 </resources>
