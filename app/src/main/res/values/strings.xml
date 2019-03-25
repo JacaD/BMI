@@ -10,4 +10,35 @@
     <string name="bmi_menu_change_units_to_lbs_ft">Change to lbs/ft</string>
     <string name="bmi_menu_change_units_to_kg_cm">Change to kg/cm</string>
     <string name="title_activity_about">About</string>
+    <string name="about_menu_info">
+        This app lets you easily calculate your BMI value using metric and imperial units.
+        \n No rights reserved, you can do with it what you want, but if you\'ve ran
+        across this project when looking for finished apps which you can copy and mark it as yours to pass a course
+        consider buying me a beer
+    </string>
+    <string name="about_menu_button">Take me down to the paradise city</string>
+    <string name="bmi_main_description_for_underweight">
+        Underweight. \n Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+        Vestibulum condimentum mi sapien, ac varius massa porta porta.
+        In eget lacus pellentesque metus facilisis ornare. Nulla posuere urna a molestie bibendum.
+    </string>
+    <string name="bmi_main_description_for_normal">
+        Normal. \n Nullam quis velit in nulla feugiat semper.
+        Integer efficitur neque eget sapien euismod auctor.
+        Aenean laoreet leo pulvinar ultricies consequat.
+    </string>
+    <string name="bmi_main_description_for_overweight">
+        Overweight. \n Donec rhoncus laoreet nunc quis feugiat.
+        Praesent iaculis, velit quis varius vehicula, nisl dui laoreet lectus,
+        vel luctus risus neque non purus.
+    </string>
+    <string name="bmi_main_description_for_obese">
+        Obese. \n Sed dignissim diam at eleifend pellentesque.
+        Vestibulum molestie commodo mauris eu lacinia.
+        Donec et lorem sit amet massa iaculis ultricies.
+    </string>
+    <string name="bmi_main_description_for_extremely_obese">
+        Extremely Obese. \n Etiam nec velit et orci vestibulum pharetra.
+        Phasellus tincidunt et sem et finibus. Nullam porttitor pharetra risus sit amet pellentesque.
+    </string>
 </resources>
