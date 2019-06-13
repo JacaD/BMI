@@ -1,6 +1,8 @@
 package com.example.bmi
 
+import android.content.Context
 import android.content.Intent
+import android.content.SharedPreferences
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.view.Menu
@@ -10,19 +12,34 @@ import android.widget.Toast
 import com.example.bmi.logic.BmiAnalyser
 import com.example.bmi.logic.BmiForKgCm
 import com.example.bmi.logic.BmiForLbsIn
+import com.google.gson.Gson
 import kotlinx.android.synthetic.main.activity_main.*
 import java.lang.Exception
+import java.util.*
+import org.json.JSONObject
+import java.nio.file.Files.size
+import android.preference.PreferenceManager
+import kotlin.collections.ArrayList
+
 
 class MainActivity : AppCompatActivity() {
 
     var imperialSelected: Boolean = false
     var bmi: Double = -1.0
 
+    data class HistoryEntry(
+        val weight: Double,
+        val height: Double
+    )
+
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         menuInflater.inflate(R.menu.options_menu, menu)
         val aboutItem: MenuItem? = menu?.findItem(R.id.about)
         val aboutIntent = Intent(this, AboutActivity::class.java)
         aboutItem?.intent = aboutIntent
+        val historyItem: MenuItem? = menu?.findItem(R.id.history)
+        val historyIntent = Intent(this, HistoryActivity::class.java)
+        historyItem?.intent = historyIntent
         return true
     }
 
@@ -61,6 +78,7 @@ class MainActivity : AppCompatActivity() {
                 false -> BmiForKgCm(weight, height).countBMI()
             }
             displayBMI()
+            saveBMI(weight, height)
         }
         catch(e: Exception){
             Toast.makeText(applicationContext, "Wrong Data", Toast.LENGTH_LONG).show()
@@ -72,7 +90,36 @@ class MainActivity : AppCompatActivity() {
         startActivity(Intent(this, InfoActivity::class.java).putExtra("bmi", bmi))
     }
 
-    fun displayBMI(){
+//    fun showHistory(v: View){
+//        startActivity(Intent(this, HistoryActivity::class.java))
+//    }
+
+    private fun saveBMI(weight: Int, height: Int){
+        val history: ArrayList<String?> = ArrayList()
+        val sp = PreferenceManager.getDefaultSharedPreferences(this)
+        val size = sp.getInt("HistorySize", 0)
+        for (i in 0 until size) {
+            history.add(sp.getString("Entry_$i", null))
+        }
+
+        if(history.size == 10){
+            history.removeAt(0)
+        }
+        if(!history.contains("$weight,$height,$imperialSelected")) {
+            history.add("$weight,$height,$imperialSelected")
+        }
+
+        val spEdit = sp.edit()
+        spEdit.putInt("HistorySize", history.size)
+
+        for (i in 0 until history.size) {
+            spEdit.remove("Entry_$i")
+            spEdit.putString("Entry_$i", history[i])
+        }
+        spEdit.apply()
+    }
+
+    private fun displayBMI(){
         val bmiStr: String = String.format("%.2f", bmi)
         result_TV.setTextColor(BmiAnalyser.getColorOfTextForGivenBMI(bmi))
         result_TV.text = bmiStr

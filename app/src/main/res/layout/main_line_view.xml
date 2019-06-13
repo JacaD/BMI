@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" xmlns:tools="http://schemas.android.com/tools">
+
+    <TextView
+            android:id="@+id/main_line_title"
+            tools:text="Line 1"
+            android:layout_height="50pt"
+            android:layout_width="match_parent"/>
+
+<!--    <ImageButton
+            android:id="@id/main_line_more"
+            android:src="@drawable/ic_add_black_24dp"
+    ... />
+
+    <ImageButton
+            android:id="@id/main_line_delete"
+            android:src="@drawable/ic_delete_black_24dp"
+    ... />
+!-->
+</RelativeLayout>
