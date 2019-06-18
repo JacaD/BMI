@@ -43,8 +43,8 @@ class HistoryAdapter(val context: Context, val entries: ArrayList<String>) : Rec
             entryImage.setImageResource(BmiAnalyser.getImageIdForGivenBMI(
                 if(imperialSelected) BmiForLbsIn(weight, height).countBMI()
                 else BmiForKgCm(weight, height).countBMI()))
-            entryWeight.text = "Weight: " + weight.toString()
-            entryHeight.text = "Height: " + height.toString()
+            entryWeight.text = "Weight: " + weight.toString() + if(imperialSelected) "lbs" else "kg"
+            entryHeight.text = "Height: " + height.toString() + if(imperialSelected) "in" else "cm"
             entryBMI.text = "BMI: " + if(imperialSelected) "${BmiForLbsIn(weight, height).countBMI().format(2)}"
             else "${BmiForKgCm(weight, height).countBMI().format(2)}"
         }
